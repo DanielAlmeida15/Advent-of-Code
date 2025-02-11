@@ -20,7 +20,6 @@ int main() {
 
 	if (list1.size() != list2.size()) {
 		cout << "Error: Lists are not the same size" << endl;
-		exit(1);
 	}else{
 		for (int i = 0; i < list1.size(); i++) {
 			total_distance += abs(list1[i] - list2[i]);
@@ -36,11 +35,10 @@ int main() {
 			similarity_score += list1[i] * count;
 			count = 0;
 		}
+		cout << "Total distance: " << total_distance << endl;
+		cout << "Similarity score: " << similarity_score << endl;
 	}
-	
-	cout << "Total distance: " << total_distance << endl;
-	cout << "Similarity score: " << similarity_score << endl;
-	
+
 	return 0;
 }
 
@@ -51,15 +49,15 @@ void getInput(vector<int>& list1, vector<int>& list2, string filename) {
 	file.open(filename);
 	if (!file) {
 		cout << "Error: Unable to open file" << endl;
-		exit(1);
-	}
-	string line, number, delimiter = " ";
-	int num1, num2;
-	while (getline(file, line)) {
-		num1 = stoi(line.substr(0, line.find(delimiter)));
-		num2 = stoi(line.substr(line.rfind(delimiter) + 1, line.length()));
-		list1.push_back(num1);
-		list2.push_back(num2);
+	}else{
+		string line, number, delimiter = " ";
+		int num1, num2;
+		while (getline(file, line)) {
+			num1 = stoi(line.substr(0, line.find(delimiter)));
+			num2 = stoi(line.substr(line.rfind(delimiter) + 1, line.length()));
+			list1.push_back(num1);
+			list2.push_back(num2);
+		}
 	}
 	file.close();
 }

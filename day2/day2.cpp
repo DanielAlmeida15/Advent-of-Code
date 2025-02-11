@@ -26,21 +26,21 @@ void getInput(string filename) {
 	file.open(filename);
 	if (!file) {
 		cout << "Error: Unable to open file" << endl;
-		exit(1);
-	}
-	string report, delimiter = " ";
-	int lvl, pos=0;
-	while (getline(file, report)) {
-		vector<int> levels;
-		while ((pos = report.find(delimiter)) != string::npos)
-		{
-			lvl = stoi(report.substr(0, pos));
-			levels.push_back(lvl);
-			report.erase(0, pos + delimiter.length());
-		}
-		levels.push_back(stoi(report));
-		if (checkReport(levels)) {
-			safeReportCount++;
+	}else{
+		string report, delimiter = " ";
+		int lvl, pos=0;
+		while (getline(file, report)) {
+			vector<int> levels;
+			while ((pos = report.find(delimiter)) != string::npos)
+			{
+				lvl = stoi(report.substr(0, pos));
+				levels.push_back(lvl);
+				report.erase(0, pos + delimiter.length());
+			}
+			levels.push_back(stoi(report));
+			if (checkReport(levels)) {
+				safeReportCount++;
+			}
 		}
 	}
 	file.close();
@@ -68,7 +68,6 @@ bool checkReport(vector<int>& levels) {
 			}
 			
 		}else{
-			
 			if (!((0 < (levels[i+1] - levels[i])) && ((levels[i+1] - levels[i]) < 4)))
 			{
 				badLevel = true;
@@ -77,11 +76,7 @@ bool checkReport(vector<int>& levels) {
 		}
 
 		//cout << "Bad levels: " << badLevels << endl;
-		if (badLevels > 1)
-		{
-			
-			return false;
-		}
+		if (badLevels > 1) return false;
 
 		if (badLevel)
 		{
@@ -99,10 +94,7 @@ void removeBadLevel(vector<int>& levels, int index) {
 	{
 		levels.pop_back();
 	}else{
-		for (int i = index; i < levels.size()-1; i++)
-		{
-			levels[i] = levels[i+1];
-		}
+		for (int i = index; i < levels.size()-1; i++) levels[i] = levels[i+1];
 		levels.pop_back();
 	}
 }
